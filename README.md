@@ -1,1 +1,1 @@
-# Solitons_in_BECs
+# SolitonsBECs
