@@ -7,10 +7,13 @@ This repository contains the Julia codes associated with the paper: "Computer-As
 
 In the repository root, open a terminal and run:
 
+
 ```bash
 julia --project=.
 
-Then, in the Julia REPL (press ] to enter package mode):
+
+
+Then, in the Julia REPL press ] to enter package mode:
 
 ```julia
 activate .
