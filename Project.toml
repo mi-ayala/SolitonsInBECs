@@ -1,0 +1,12 @@
+name = "SolitonsInBECs"
+uuid = "a7708106-f211-4eef-9a06-95b409ac5726"
+version = "0.1.0"
+
+[deps]
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+RadiiPolynomial = "f2081a94-c849-46b6-8dc9-07bb90ed72a9"
+UnPack = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
+
+[compat]
+LinearAlgebra = "1.11.0"
