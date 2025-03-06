@@ -131,12 +131,12 @@ F!(Fx_interval_N, x_interval, parameters, v_bundle, interval(λ), γ, w₃)
 F!(Fx_interval, x_interval, parameters, v_bundle, interval(λ), γ, w₃)
 
 
-# DFx_interval = LinearOperator(space(Fx_interval), space(x_interval), similar(coefficients(x_interval), length(x_interval), length(Fx_interval)))
-# DF!(DFx_interval, x_interval, parameters, interval(λ), w₃, N_F)
-# save("DFx_interval_manifold.jld2", "DFx_interval", DFx_interval)
+DFx_interval = LinearOperator(space(Fx_interval), space(x_interval), similar(coefficients(x_interval), length(x_interval), length(Fx_interval)))
+DF!(DFx_interval, x_interval, parameters, interval(λ), w₃, N_F)
+save("DFx_interval_manifold.jld2", "DFx_interval", DFx_interval)
 
-file2 = jldopen("data/DFx_interval_manifold.jld2")
-DFx_interval = file2["DFx_interval"]
+# file2 = jldopen("data/DFx_interval_manifold.jld2")
+# DFx_interval = file2["DFx_interval"]
 
 ### The inverse of the mid-point of the operator
 A = inv(mid.(project(DFx_interval, space(x_interval), space(x_interval))))
@@ -182,12 +182,12 @@ Y = interval(r_F) * opnorm_A + norm(interval.(A) * Fx_interval_N, S_TF²_norm) +
 
 ### The Z1 bound
 
-# Z₁_finite = opnorm(interval.(A) * DFx_interval - UniformScaling(interval(1)), S_TF²_norm)
-# ### Save  Z₁_finite
-# save("data/Z1_finite_manifold.jld2", "Z1_finite", Z₁_finite)
+Z₁_finite = opnorm(interval.(A) * DFx_interval - UniformScaling(interval(1)), S_TF²_norm)
+### Save  Z₁_finite
+save("data/Z1_finite_manifold.jld2", "Z1_finite", Z₁_finite)
 
-file3 = jldopen("data/Z1_finite_manifold.jld2")
-Z₁_finite = file3["Z1_finite"]
+# file3 = jldopen("data/Z1_finite_manifold.jld2")
+# Z₁_finite = file3["Z1_finite"]
 Z₁_tail = bound_inv_L * bound_Df
 Z1 = Z₁_finite + Z₁_tail
 
