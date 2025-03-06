@@ -13,7 +13,7 @@ b = file["b"];
 c = file["c"];
 σ = file["σ"];
 θ = file["θ"];
-P = file["w"];
+w = file["w"];
 s = file["s"];
 l_scaling = file["scaling"];
 
@@ -26,9 +26,10 @@ r_F = interval(4.122891017172993e-13)
 κ = interval((1 + 2 * pi) / 2)
 
 N_F = order(space(component(v, 1)))
-N_T = order(space(component(P, 1)))[2]
+N_T = order(space(component(w, 1)))[2]
 N_C = order(space(component(s, 1)))
 
+### Validation maps and its derivatives
 function f!(f_, P, parameters)
 
     f_ .= interval(0.0)
@@ -235,11 +236,11 @@ Fx_interval_N .= interval(0.0)
 
 DF_interval = LinearOperator(space(Fx_interval), space(x_interval), similar(coefficients(x_interval), length(x_interval), length(Fx_interval)))
 
-P = Sequence((Taylor(N_T) ⊗ Fourier(N_F, interval(1.0)))^4, interval.(coefficients(P)))
+w = Sequence((Taylor(N_T) ⊗ Fourier(N_F, interval(1.0)))^4, interval.(coefficients(w)))
 
-F_soliton!(Fx_interval_N, x_interval, parameters, P)
-F_soliton!(Fx_interval, x_interval, parameters, P)
-DF_interval = DF_soliton!(DF_interval, x_interval, parameters, P)
+F_soliton!(Fx_interval_N, x_interval, parameters, w)
+F_soliton!(Fx_interval, x_interval, parameters, w)
+DF_interval = DF_soliton!(DF_interval, x_interval, parameters, w)
 
 ### A operator finite part
 A = inv(mid.(project(DF_interval, space(x_interval), space(x_interval))))
@@ -252,8 +253,8 @@ X_C_norm = NormedCartesianSpace((ℓ∞(), S_C⁴_norm), ℓ∞())
 
 ### Components of the soliton and parameterization
 s₁, s₂, s₃, s₄ = eachcomponent(component(x_interval, 2))
-W = EvaluateManifold(interval(θ), σ, P)
-dW = EvaluateManifold(interval(θ), σ, Derivative(1, 0)P)
+W = EvaluateManifold(interval(θ), σ, w)
+dW = EvaluateManifold(interval(θ), σ, Derivative(1, 0)w)
 
 ### The bound on the inverse of operator L times the projection and on the vector field
 bound_inv_L = inv(interval(2N_C))
@@ -299,7 +300,7 @@ Z1 = Z₁_finite + Z₁_B + Z₁_C
 r_star_C = 1e-2
 
 int_sigma = interval(σ, r_star_C; format=:midpoint)
-ddW = EvaluateManifold(interval(1), int_sigma, Derivative(2, 0)P)
+ddW = EvaluateManifold(interval(1), int_sigma, Derivative(2, 0)w)
 
 Z2_1 = opnorm_A + (interval(1) / interval(2N_C))
 Z2_2 = interval(2) * abs(interval(b)) + interval(6) * abs(interval(c)) * norm(s₁, S_C_norm) + interval(3) * abs(interval(c)) * interval(r_star_C)
