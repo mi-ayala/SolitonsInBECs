@@ -3,6 +3,8 @@
 This repository contains the Julia codes associated with the paper: "Computer-Assisted Proofs of Gap Solitons in Bose-Einstein Condensates" by M Ayala, C García-Azpeitia and J-P Lessard.
 
 [🔗 Link to Journal](https://link.springer.com/article/10.1007/s00332-026-10242-2)
+
+
 [🔗 arXiv:2503.04701](https://arxiv.org/abs/2503.04701)  
 
 ## Abstract
